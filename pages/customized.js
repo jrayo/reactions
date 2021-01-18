@@ -46,6 +46,8 @@ export async function getStaticProps() {
     throw new Error('Failed to fetch API')
   }
 
+  const timeoutNumber = parseInt(process.env.NEXT_PUBLIC_REVALIDATE_TIMEOUT)
+
   // [0, 0, 0, 0, 0, 0, 0, 0]
   const reactions = json.data.repository.issue.reactionGroups.map(
     (item) => item.users.totalCount
@@ -55,7 +57,7 @@ export async function getStaticProps() {
     props: {
       reactions
     },
-    revalidate: process.env.NEXT_PUBLIC_REVALIDATE_TIMEOUT
+    revalidate: timeoutNumber
   }
 }
 
